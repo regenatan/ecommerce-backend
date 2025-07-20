@@ -2,17 +2,29 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-const productsRouter = require('./routes/products');
-
 const pool = require('./database');
 const app = express();
+
+const productsRouter = require('./routes/products');
+const userRouter = require('./routes/users');
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 
+//test routes
+app.get('/', async (req, res) => {
+  const [products] = await pool.query("SELECT * FROM products");
+
+  res.json({
+    message: "welcome to API",
+    products
+  })
+});
+
 // Routes
 app.use('/api/products', productsRouter);
+app.use('/api/users',userRouter);
 
 app.get('/', (req, res) => {
   res.json({ message: "Welcome to the API" });
