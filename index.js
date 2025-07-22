@@ -7,6 +7,7 @@ const app = express();
 
 const productsRouter = require('./routes/products');
 const userRouter = require('./routes/users');
+const cartRoutes = require('./routes/cart');
 
 // Middleware
 app.use(express.json());
@@ -25,6 +26,7 @@ app.get('/', async (req, res) => {
 // Routes
 app.use('/api/products', productsRouter);
 app.use('/api/users',userRouter);
+app.use('/api/cart', cartRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: "Welcome to the API" });
